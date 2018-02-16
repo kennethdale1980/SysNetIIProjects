@@ -1,10 +1,16 @@
 CFLAGS = -g -Wall
 CC = gcc
 
-objects = bbmenu.o bbpeer.o bbserver.o
+serverObjects = bbmenu.o bbserver.o
+peerObjects = bbmenu.o bbpeer.o
 
-syntaxAnalyzer: $(objects)
-	$(CC) -o bb $(objects)
+all: bbserver bbpeer
+
+bbserver: $(serverObjects)
+	$(CC) -o bbserver $(serverObjects)
+
+bbpeer: $(peerObjects)
+	$(CC) -o bbpeer $(peerObjects)
 
 bbmenu.o: bbmenu.h bbmenu.c
 bbmenu.o: bbpeer.h bbpeer.c
@@ -12,4 +18,4 @@ bbmenu.o: bbserver.h bbserver.c
 
 .PHONY: clean
 clean:
-	rm bb $(objects)
+	rm bbserver bbpeer $(serverObjects) $(peerObjects)
